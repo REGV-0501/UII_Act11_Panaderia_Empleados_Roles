@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ empleado.nombre }} {{ empleado.apellido }} | Panadería{% endblock %}
+
+{% block contenido %}
+<article class="employee-detail">
+    <div class="employee-banner">
+        {% if empleado.foto %}
+            <img src="{{ empleado.foto.url }}" alt="Foto de {{ empleado.nombre }} {{ empleado.apellido }}" class="detail-photo">
+        {% else %}
+            <div class="detail-placeholder">👤</div>
+        {% endif %}
+        <div class="employee-info">
+            <h1>{{ empleado.nombre }} {{ empleado.apellido }}</h1>
+            <h3>{% if empleado.rol %}{{ empleado.rol.nombre_rol }}{% else %}Sin Rol Asignado{% endif %}</h3>
+            <p><strong>Salario:</strong> ${{ empleado.salario }}</p>
+        </div>
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'app_empleados:editar_empleado' empleado.id %}" class="btn btn-secondary">✏️ Editar</a>
+        <a href="{% url 'app_empleados:borrar_empleado' empleado.id %}" class="btn btn-danger">🗑️ Borrar</a>
+    </div>
+
+    <section class="employee-contact-info">
+        <h2>Detalles de Contacto y Empleo</h2>
+        <ul>
+            <li><strong>Fecha de Nacimiento:</strong> {{ empleado.fecha_nacimiento|date:"d M Y" }}</li>
+            <li><strong>Fecha de Contratación:</strong> {{ empleado.fecha_contratacion|date:"d M Y" }}</li>
+            <li><strong>Teléfono:</strong> {% if empleado.telefono %}{{ empleado.telefono }}{% else %}N/A{% endif %}</li>
+            <li><strong>Email:</strong> {% if empleado.email %}{{ empleado.email }}{% else %}N/A{% endif %}</li>
+            <li><strong>Dirección:</strong> {% if empleado.direccion %}{{ empleado.direccion }}{% else %}N/A{% endif %}</li>
+        </ul>
+    </section>
+</article>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo %}Eliminar Empleado | Panadería{% endblock %}
+
+{% block contenido %}
+<h2>¿Estás seguro de que quieres borrar a "{{ empleado.nombre }} {{ empleado.apellido }}"?</h2>
+<p>Esta acción es irreversible y eliminará todos los datos asociados al empleado.</p>
+<form method="post">
+    {% csrf_token %}
+    <div class="actions">
+        <button type="submit" class="btn btn-danger">Sí, Borrar</button>
+        <a href="{% url 'app_empleados:detalle_empleado' empleado.id %}" class="btn">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
